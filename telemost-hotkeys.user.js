@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name Telemost Hotkeys (KTalk-like)
 // @namespace https://github.com/happyproff/userscript-telemost-hotkeys
-// @version 1.1.0
+// @version 1.1.1
 // @description Adds KTalk-style hotkeys to Yandex Telemost: Alt+A, Alt+V, Alt+R, Alt+D, Alt+C/Alt+H
 // @author Stanislav Gamaiunov
 // @match https://telemost.yandex.ru/*
@@ -25,15 +25,6 @@
 
     window.addEventListener('keydown', (e) => {
         if (!e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) {
-            return;
-        }
-
-        const active = document.activeElement;
-        if (
-            active?.tagName === 'INPUT' ||
-            active?.tagName === 'TEXTAREA' ||
-            active?.isContentEditable
-        ) {
             return;
         }
 
