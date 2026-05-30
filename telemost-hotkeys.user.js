@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name Telemost Hotkeys (KTalk-like)
 // @namespace https://github.com/happyproff/userscript-telemost-hotkeys
-// @version 1.2.0
+// @version 1.4.0
 // @description Adds KTalk-style hotkeys to Yandex Telemost: Alt+A, Alt+V, Alt+R, Alt+D, Alt+C/Alt+H
 // @author Stanislav Gamaiunov
 // @match https://telemost.yandex.ru/*
@@ -14,7 +14,6 @@
 // @downloadURL https://raw.githubusercontent.com/happyproff/userscript-telemost-hotkeys/main/telemost-hotkeys.user.js
 // @grant none
 // @run-at document-start
-// @all-frames true
 // ==/UserScript==
 
 (function () {
@@ -32,6 +31,33 @@
         '[data-testid="start-demonstration-button"], [data-testid="stop-demonstration-button"]',
         'button[data-testid="chat-alt-button"]',
     ]);
+    const BUTTON_ACTIVE_CLASS = 'telemost-hotkeys-button-active';
+    const HOTKEYS = new Map([
+        ['KeyA', {
+            action: 'Microphone',
+            selector: '[data-testid="turn-on-mic-button"], [data-testid="turn-off-mic-button"]',
+        }],
+        ['KeyV', {
+            action: 'Camera',
+            selector: '[data-testid="turn-on-camera-button"], [data-testid="turn-off-camera-button"]',
+        }],
+        ['KeyR', {
+            action: 'Raise hand',
+            selector: '[data-testid="hand-up-button"], [data-testid="hand-down-button"]',
+        }],
+        ['KeyD', {
+            action: 'Screen sharing',
+            selector: '[data-testid="start-demonstration-button"], [data-testid="stop-demonstration-button"]',
+        }],
+        ['KeyC', {
+            action: 'Chat',
+            selector: 'button[data-testid="chat-alt-button"]',
+        }],
+        ['KeyH', {
+            action: 'Chat',
+            selector: 'button[data-testid="chat-alt-button"]',
+        }],
+    ]);
     const isTopWindow = () => {
         try {
             return window.top === window;
@@ -39,6 +65,8 @@
             return false;
         }
     };
+    let activeHighlightSelector = '';
+    let highlightIntervalId;
 
     const clickPageButton = (selector) => {
         if (!ALLOWED_SELECTORS.has(selector)) {
@@ -49,6 +77,33 @@
         button?.click();
 
         return Boolean(button);
+    };
+
+    const setPageButtonHighlight = (selector, isActive) => {
+        activeHighlightSelector = isActive ? selector : '';
+        clearInterval(highlightIntervalId);
+
+        document.querySelectorAll(`.${BUTTON_ACTIVE_CLASS}`).forEach((button) => {
+            button.classList.remove(BUTTON_ACTIVE_CLASS);
+        });
+
+        if (!isActive || !ALLOWED_SELECTORS.has(selector)) {
+            return;
+        }
+
+        const applyHighlight = () => {
+            if (activeHighlightSelector !== selector) {
+                return;
+            }
+
+            document.querySelectorAll(`.${BUTTON_ACTIVE_CLASS}`).forEach((button) => {
+                button.classList.remove(BUTTON_ACTIVE_CLASS);
+            });
+            document.querySelector(selector)?.classList.add(BUTTON_ACTIVE_CLASS);
+        };
+
+        applyHighlight();
+        highlightIntervalId = setInterval(applyHighlight, 50);
     };
 
     const getParentOrigin = () => {
@@ -67,23 +122,50 @@
         return;
     }
 
-    const clickButton = (action, selector) => {
-        console.info(`[Telemost Hotkeys] ${action} hotkey pressed.`);
-
+    const sendButtonEvent = (eventName, action, selector) => {
         if (isTopWindow()) {
-            clickPageButton(selector);
+            if (eventName === 'press') {
+                console.info(`[Telemost Hotkeys] ${action} hotkey pressed.`);
+                setPageButtonHighlight(selector, true);
+                clickPageButton(selector);
+            }
+
+            setPageButtonHighlight(selector, eventName === 'press');
             return;
         }
 
         window.top?.postMessage({
             type: CLICK_MESSAGE_TYPE,
+            eventName,
             action,
             selector,
         }, getParentOrigin());
     };
 
+    const pressButton = (action, selector) => {
+        sendButtonEvent('press', action, selector);
+    };
+
+    const releaseButton = (selector) => {
+        sendButtonEvent('release', '', selector);
+    };
+
     const handleHotkey = (e) => {
-        if (e.repeat) {
+        const hotkey = HOTKEYS.get(e.code);
+        const isAltRelease = e.type === 'keyup' && (e.code === 'AltLeft' || e.code === 'AltRight');
+
+        if (e.type === 'keyup') {
+            if (hotkey) {
+                e.preventDefault();
+                releaseButton(hotkey.selector);
+            } else if (isAltRelease) {
+                releaseButton('');
+            }
+
+            return;
+        }
+
+        if (e.repeat || !hotkey) {
             return;
         }
 
@@ -91,37 +173,13 @@
             return;
         }
 
-        // noinspection SpellCheckingInspection
-        switch (e.code) {
-            case 'KeyA':
-                e.preventDefault();
-                clickButton('Microphone', '[data-testid="turn-on-mic-button"], [data-testid="turn-off-mic-button"]');
-                break;
-
-            case 'KeyV':
-                e.preventDefault();
-                clickButton('Camera', '[data-testid="turn-on-camera-button"], [data-testid="turn-off-camera-button"]');
-                break;
-
-            case 'KeyR':
-                e.preventDefault();
-                clickButton('Raise hand', '[data-testid="hand-up-button"], [data-testid="hand-down-button"]');
-                break;
-
-            case 'KeyD':
-                e.preventDefault();
-                clickButton('Screen sharing', '[data-testid="start-demonstration-button"], [data-testid="stop-demonstration-button"]');
-                break;
-
-            case 'KeyC':
-            case 'KeyH':
-                e.preventDefault();
-                clickButton('Chat', 'button[data-testid="chat-alt-button"]');
-                break;
-        }
+        e.preventDefault();
+        pressButton(hotkey.action, hotkey.selector);
     };
 
     window.addEventListener('keydown', handleHotkey, true);
+    window.addEventListener('keyup', handleHotkey, true);
+    window.addEventListener('blur', () => releaseButton(''));
 
     window.addEventListener('message', (e) => {
         if (
@@ -132,12 +190,18 @@
             return;
         }
 
-        if (!ALLOWED_SELECTORS.has(e.data.selector)) {
+        if (e.data.eventName !== 'release' && !ALLOWED_SELECTORS.has(e.data.selector)) {
             return;
         }
 
-        console.info(`[Telemost Hotkeys] ${e.data.action} hotkey pressed.`);
-        clickPageButton(e.data.selector);
+        if (e.data.eventName === 'press') {
+            console.info(`[Telemost Hotkeys] ${e.data.action} hotkey pressed.`);
+            setPageButtonHighlight(e.data.selector, true);
+            clickPageButton(e.data.selector);
+            setPageButtonHighlight(e.data.selector, true);
+        } else if (e.data.eventName === 'release') {
+            setPageButtonHighlight(e.data.selector, false);
+        }
     });
 
     const addStyles = () => {
@@ -149,6 +213,11 @@
             [data-testid="stop-demonstration-button"] {
                 background: #b91c1c !important;
                 color: #ffffff !important;
+            }
+
+            .${BUTTON_ACTIVE_CLASS} {
+                outline: 2px solid #3b82f6 !important;
+                outline-offset: 2px !important;
             }
         `;
         document.head.appendChild(style);
