@@ -1,8 +1,10 @@
 // ==UserScript==
-// @name Telemost Hotkeys (KTalk-like)
+// @name Telemost Hotkeys
+// @name:ru Горячие клавиши для сервиса Яндекс Телемост
 // @namespace https://github.com/happyproff/userscript-telemost-hotkeys
-// @version 1.5.0
-// @description Adds KTalk-style hotkeys to Yandex Telemost: Alt+A, Alt+V, Alt+R, Alt+D, Alt+C/Alt+H
+// @version 1.6.0
+// @description Adds keyboard shortcuts and button highlights to Yandex Telemost.
+// @description:ru Добавляет горячие клавиши и подсветку кнопок в Яндекс Телемост.
 // @author Stanislav Gamaiunov
 // @license MIT
 // @match https://telemost.yandex.ru/*
@@ -129,9 +131,10 @@
                 console.info(`[Telemost Hotkeys] ${action} hotkey pressed.`);
                 setPageButtonHighlight(selector, true);
                 clickPageButton(selector);
+            } else if (eventName === 'release') {
+                setPageButtonHighlight(selector, false);
             }
 
-            setPageButtonHighlight(selector, eventName === 'press');
             return;
         }
 

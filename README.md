@@ -1,4 +1,4 @@
-# Yandex Telemost Hotkeys
+# Telemost Hotkeys
 
 Userscript:
 1. Adds Kontur Talk-style hotkeys to Yandex Telemost.
@@ -47,7 +47,7 @@ shortcut `Alt+H`.
 
 ---
 
-# Горячие клавиши для сервиса Яндекс Телемост / Yandex Telemost Hotkeys
+# Горячие клавиши для сервиса Яндекс Телемост
 
 Юзерскрипт:
 1. Добавляет в Яндекс Телемост горячие клавиши в стиле Контур Толка.
