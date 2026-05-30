@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name Telemost Hotkeys (KTalk-like)
 // @namespace https://github.com/happyproff/userscript-telemost-hotkeys
-// @version 1.0.0
-// @description Adds KTalk-style hotkeys to Yandex Telemost: Alt+A, Alt+V, Alt+R, Alt+D, Alt+C
+// @version 1.1.0
+// @description Adds KTalk-style hotkeys to Yandex Telemost: Alt+A, Alt+V, Alt+R, Alt+D, Alt+C/Alt+H
 // @author Stanislav Gamaiunov
 // @match https://telemost.yandex.ru/*
 // @match https://telemost.360.yandex.ru/*
@@ -18,11 +18,12 @@
 (function () {
     'use strict';
 
-    const clickButton = (selector) => {
+    const clickButton = (action, selector) => {
+        console.info(`[Telemost Hotkeys] ${action} hotkey pressed.`);
         document.querySelector(selector)?.click();
     };
 
-    document.addEventListener('keydown', (e) => {
+    window.addEventListener('keydown', (e) => {
         if (!e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) {
             return;
         }
@@ -40,27 +41,28 @@
         switch (e.code) {
             case 'KeyA':
                 e.preventDefault();
-                clickButton('[data-testid="turn-on-mic-button"], [data-testid="turn-off-mic-button"]');
+                clickButton('Microphone', '[data-testid="turn-on-mic-button"], [data-testid="turn-off-mic-button"]');
                 break;
 
             case 'KeyV':
                 e.preventDefault();
-                clickButton('[data-testid="turn-on-camera-button"], [data-testid="turn-off-camera-button"]');
+                clickButton('Camera', '[data-testid="turn-on-camera-button"], [data-testid="turn-off-camera-button"]');
                 break;
 
             case 'KeyR':
                 e.preventDefault();
-                clickButton('[data-testid="hand-up-button"], [data-testid="hand-down-button"]');
+                clickButton('Raise hand', '[data-testid="hand-up-button"], [data-testid="hand-down-button"]');
                 break;
 
             case 'KeyD':
                 e.preventDefault();
-                clickButton('[data-testid="start-demonstration-button"], [data-testid="stop-demonstration-button"]');
+                clickButton('Screen sharing', '[data-testid="start-demonstration-button"], [data-testid="stop-demonstration-button"]');
                 break;
 
             case 'KeyC':
+            case 'KeyH':
                 e.preventDefault();
-                clickButton('[data-testid="chat-alt-button"]');
+                clickButton('Chat', 'button[data-testid="chat-alt-button"]');
                 break;
         }
     }, true);

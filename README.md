@@ -7,8 +7,9 @@
 ## Установка
 
 1. Установите расширение [Tampermonkey](https://chromewebstore.google.com/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo) для Chrome ([для других браузеров](https://www.tampermonkey.net/))
-2. Откройте [скрипт](https://raw.githubusercontent.com/happyproff/userscript-telemost-hotkeys/main/telemost-hotkeys.user.js) и нажмите Install
-3. Если Телемост уже открыт, обновите страницу
+2. В [настройках расширения](chrome://extensions/?id=dhdgffkkebhmkfjojejmpbldmpobfkfo) включите «Allow User Scripts»
+3. Откройте [скрипт](https://raw.githubusercontent.com/happyproff/userscript-telemost-hotkeys/main/telemost-hotkeys.user.js) и нажмите Install
+4. Если Телемост уже открыт, обновите страницу
 
 ## Горячие клавиши
 
