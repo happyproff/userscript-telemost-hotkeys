@@ -1,8 +1,9 @@
 {
   "manifest_version": 3,
-  "name": "Telemost Hotkeys",
+  "name": "__MSG_extName__",
   "version": "1.0.0",
-  "description": "Adds keyboard shortcuts and button highlights to Yandex Telemost.",
+  "description": "__MSG_extDescription__",
+  "default_locale": "en",
   "icons": {
     "16": "icons/icon-16.png",
     "32": "icons/icon-32.png",
