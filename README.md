@@ -47,6 +47,10 @@ before the page receives them. For example, `Alt+C` may conflict with the
 `Xdebug Helper by JetBrains` extension. In that case, use the fallback chat
 shortcut `Alt+H`.
 
+## TODO
+
+- Split the end call button into two buttons: `Leave` and `End meeting`.
+
 ---
 
 # Горячие клавиши для сервиса Яндекс Телемост
@@ -97,3 +101,7 @@ shortcut `Alt+H`.
 сочетания клавиш раньше страницы. Например, `Alt+C` может конфликтовать с
 расширением Xdebug Helper by JetBrains. В таком случае для чата можно
 использовать запасное сочетание `Alt+H`.
+
+## TODO
+
+- Разделить кнопку завершения звонка на две: `Выйти` и `Завершить встречу`.
