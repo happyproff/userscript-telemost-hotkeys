@@ -1,3 +1,7 @@
+[en](#telemost-hotkeys) [ru](#горячие-клавиши-для-сервиса-яндекс-телемост)
+
+---
+
 # Telemost Hotkeys
 
 Userscript:
