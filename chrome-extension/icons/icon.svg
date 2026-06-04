@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Telemost Hotkeys icon">
+  <defs>
+    <linearGradient id="bg" x1="20" y1="12" x2="108" y2="116" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#EFF6FF"/>
+      <stop offset="1" stop-color="#DBEAFE"/>
+    </linearGradient>
+    <linearGradient id="cam" x1="29" y1="35" x2="99" y2="91" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#38BDF8"/>
+      <stop offset="1" stop-color="#2563EB"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="8" y="8" width="112" height="112" rx="30" fill="url(#bg)"/>
+  <rect x="9" y="9" width="110" height="110" rx="29" fill="none" stroke="#BFDBFE" stroke-width="2"/>
+
+  <rect x="26" y="40" width="57" height="42" rx="14" fill="url(#cam)"/>
+  <path d="M83 51.5L103.2 40.8C106.1 39.3 109.5 41.4 109.5 44.7V77.3C109.5 80.6 106.1 82.7 103.2 81.2L83 70.5V51.5Z" fill="#60A5FA"/>
+  <circle cx="54" cy="61" r="11" fill="#EFF6FF"/>
+  <circle cx="54" cy="61" r="5" fill="#2563EB"/>
+
+  <rect x="57" y="75" width="44" height="29" rx="10" fill="#FFFFFF" stroke="#93C5FD" stroke-width="4"/>
+  <path d="M79 83L70.5 93H77L74 101L86.5 88.5H79L79 83Z" fill="#2563EB"/>
+</svg>

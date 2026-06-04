@@ -9,8 +9,10 @@ Userscript:
 
 1. Install the [Tampermonkey](https://chromewebstore.google.com/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo) extension for Chrome ([other browsers](https://www.tampermonkey.net/))
 2. Enable `Allow User Scripts` in the [extension settings](chrome://extensions/?id=dhdgffkkebhmkfjojejmpbldmpobfkfo)
-3. Open the [script](https://raw.githubusercontent.com/happyproff/userscript-telemost-hotkeys/main/telemost-hotkeys.user.js) and click `Install`
+3. Install the script from [Greasy Fork](https://greasyfork.org/en/scripts/580685-telemost-hotkeys)
 4. If Telemost is already open, reload the page
+
+Alternative: install directly from [GitHub raw](https://raw.githubusercontent.com/happyproff/userscript-telemost-hotkeys/main/telemost-hotkeys.user.js).
 
 ## Features
 
@@ -58,8 +60,10 @@ shortcut `Alt+H`.
 
 1. Установите расширение [Tampermonkey](https://chromewebstore.google.com/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo) для Chrome ([для других браузеров](https://www.tampermonkey.net/))
 2. В [настройках расширения](chrome://extensions/?id=dhdgffkkebhmkfjojejmpbldmpobfkfo) включите `Allow User Scripts`/`Разрешить пользовательские скрипты`
-3. Откройте [скрипт](https://raw.githubusercontent.com/happyproff/userscript-telemost-hotkeys/main/telemost-hotkeys.user.js) и нажмите `Install`
+3. Установите скрипт с [Greasy Fork](https://greasyfork.org/en/scripts/580685-telemost-hotkeys)
 4. Если Телемост уже открыт, обновите страницу
+
+Альтернатива: установка напрямую из [GitHub raw](https://raw.githubusercontent.com/happyproff/userscript-telemost-hotkeys/main/telemost-hotkeys.user.js).
 
 ## Возможности
 

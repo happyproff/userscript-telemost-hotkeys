@@ -1,23 +1,3 @@
-// ==UserScript==
-// @name Telemost Hotkeys
-// @name:ru Горячие клавиши для сервиса Яндекс Телемост
-// @namespace https://github.com/happyproff/userscript-telemost-hotkeys
-// @version 1.6.1
-// @description Adds keyboard shortcuts and button highlights to Yandex Telemost.
-// @description:ru Добавляет горячие клавиши и подсветку кнопок в Яндекс Телемост.
-// @author Stanislav Gamaiunov
-// @license MIT
-// @match https://telemost.yandex.ru/*
-// @match https://telemost.360.yandex.ru/*
-// @match https://yandex.ru/chat*
-// @icon https://raw.githubusercontent.com/happyproff/userscript-telemost-hotkeys/main/chrome-extension/icons/icon-128.png
-// @homepageURL https://github.com/happyproff/userscript-telemost-hotkeys
-// @supportURL https://github.com/happyproff/userscript-telemost-hotkeys/issues
-// @updateURL https://raw.githubusercontent.com/happyproff/userscript-telemost-hotkeys/main/telemost-hotkeys.user.js
-// @downloadURL https://raw.githubusercontent.com/happyproff/userscript-telemost-hotkeys/main/telemost-hotkeys.user.js
-// @grant none
-// @run-at document-start
-// ==/UserScript==
 (function () {
     'use strict';
 
